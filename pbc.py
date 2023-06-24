@@ -1,16 +1,11 @@
 #!/bin/python3
-
+#first import required libraries
 import subprocess
-c = subprocess.getoutput("apt list --installed")
-print("welcome to Bind9 editor")
 
-if "bind9" not in c:
-    bind_install = False
-    print("Bind9 is not installed in this server please use command bellow as a privileged user \n")
-    print("apt install bind9")
-
-else :
-    bind_install = True
-
-if bind_install :
-    print ("here is the zones in your configuration :")
+def is_bind_installed():
+    try:
+        is_installed = subprocess.check_output("dpkg -s bind9")
+        is_installed = is_installed.decode("utf8").lower()
+        print(is_bind_installed)
+    except:
+        return False
